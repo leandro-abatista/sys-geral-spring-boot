@@ -59,6 +59,10 @@ public class PessoaController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa")
 	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult) {
+		
+		/*pegando os telefones associados a pessoa, pelo codigo da pessoa*/
+		pessoa.setTelefones(telefoneRepository.getTelefones(pessoa.getCodigo()));
+		
 		//se tiver erro, volta para a tela e deixa os dados em tela para corrigir
 		if (bindingResult.hasErrors()) {
 			ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");

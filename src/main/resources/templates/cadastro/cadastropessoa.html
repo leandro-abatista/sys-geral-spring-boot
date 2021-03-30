@@ -44,7 +44,7 @@
     
       <div class="row">
         <div class="input-field col s2">
-        	<label>Código</label>
+        	<label for="codigo">Código:</label>
 			<input name="codigo" type="text" readonly="readonly" th:field="*{codigo}">
        </div>
       </div>
@@ -52,29 +52,40 @@
       <div class="row">
         <div class="input-field col s6">
         	<input id="nome" type="text" name="nome" class="validate" th:field="*{nome}">
-			<label for="nome">Nome</label>
+			<label for="nome">Nome:</label>
        </div>
        
        <div class="input-field col s3">
         	<input id="cpf" type="text" name="cpf" class="validate" th:field="*{cpf}">
-			<label for="cpf">CPF</label>
+			<label for="cpf">CPF:</label>
        </div>
       </div>
       
       <div class="row" >
         <div class="input-field col s1" sec:authorize="hasRole('ROLE_CAIXA')">
         	<input id="idade" type="text" name="idade" class="validate" th:field="*{idade}">
-			<label for="idade">Idade</label>
+			<label for="idade">Idade:</label>
        </div>
        
         <div class="input-field col 3">
 			<input id="telefone" type="text" name="telefone" class="validate" th:field="*{telefone}">
-			<label for="telefone">Telefone</label>
+			<label for="telefone">Telefone:</label>
        </div>
        
        <div class="input-field col s6">
           <input id="email" type="email" class="validate" name="email" th:field="*{email}">
-          <label for="email">Email</label>
+          <label for="email">Email:</label>
+        </div>
+        
+      </div>
+      
+      <div class="row">
+        <div class="input-field col s2">
+	          <select class="browser-default" th:field="*{sexo}">
+	          	<option value="" disabled selected>Selecione</option>
+	          	<option value="Masculino" th:text="MASCULINO">
+	          	<option value="Feminino" th:text="FEMININO">
+	          </select>
         </div>
       </div>
       

@@ -22,8 +22,6 @@
 
 	<h3>Spring Boot + Thymeleaf + Materialize CSS Design</h3>
 	<br>
-	<h5>Dados da Pessoa</h5>	
-	<br>
 		<!-- validação de mensagens -->
 		<div th:each="m: ${msg}">
 			<span th:text="${m}"></span>
@@ -39,12 +37,13 @@
 	<div class="card-panel teal blue-grey lighten-4" style="font-weight: bold; font-size: 20px;">
 		<div th:each="p:${pessoaObject}">
 		<div class="row">
-			<h6>CÓDIGO: <span th:text="${p.codigo}"></span></h6>
-			<h6>NOME: <span th:text="${p.nome}"></span></h6>
+			<h5>Dados da Pessoa</h5>
+			<h6>Código: <span th:text="${p.codigo}"></span></h6>
+			<h6>Nome: <span th:text="${p.nome}"></span></h6>
 			<h6>CPF: <span th:text="${p.cpf}"></span></h6>
-			<h6>IDADE: <span th:text="${p.idade}"></span></h6>
-			<h6>TELEFONE: <span th:text="${p.telefone}"></span></h6>
-			<h6>E-MAIL: <span th:text="${p.email}"></span></h6>
+			<h6>Idade: <span th:text="${p.idade}"></span></h6>
+			<h6>Telefone: <span th:text="${p.telefone}"></span></h6>
+			<h6>E-mail: <span th:text="${p.email}"></span></h6>
 		</div>
 		</div>
 	</div>
@@ -53,8 +52,7 @@
 	
 	<div class="row">
 	
-		<h5>Cadastro de Telefones</h5>
-		
+		<center><h5>Cadastro de Telefones</h5></center>
 		
 			<form id="formTelefone" th:action="@{/addFonePerson/{pessoa_codigo}(pessoa_codigo=${pessoaObject.codigo})}" 
 				method="post" class="card-panel teal blue-grey lighten-4 col s12"
@@ -62,23 +60,23 @@
 				style="font-weight: bold; font-size: 20px;">
 			
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s2">
 						<input type="text" class="validate" id="codigo" name="codigo" readonly="readonly">	
-						<label for="codigo">Código</label>
+						<label for="codigo">Código:</label>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s4">
 						<input type="text" class="validate" id="tipo" name="tipo">	
-						<label for="tipo">Tipo</label>
+						<label for="tipo">Tipo:</label>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s4">
 						<input type="text" class="validate" id="numero" name="numero">	
-						<label for="numero">Número</label>
+						<label for="numero">Número:</label>
 					</div>
 				</div>
 				

@@ -68,6 +68,9 @@ public class Pessoa implements Serializable {
 	private String uf;
 
 	private Integer ibge;
+	
+	@Column(length = 12)
+	private String sexo;
 
 	/* Getters e Setters */
 
@@ -181,6 +184,14 @@ public class Pessoa implements Serializable {
 
 	public void setIbge(Integer ibge) {
 		this.ibge = ibge;
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+	
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	@Override
