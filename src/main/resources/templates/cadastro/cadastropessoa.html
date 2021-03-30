@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title>curso springboot</title>
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+</head>
+<body>
+
+	<h3>Spring Boot + Thymeleaf + Materialize CSS Design</h3>
+	<br>
+	<h5>Cadastro de Pessoa</h5>	
+	<br>
+		<!-- validação de mensagens -->
+		<div th:each="m: ${msg}">
+			<span th:text="${m}"></span>
+		</div>
+	<br>
+	<div class="row">
+	
+    <form id="formPessoa" class="col s12 card-panel teal blue-grey lighten-4" 
+    	action="salvarpessoa" method="post" th:object="${pessoaObject}">
+    
+      <div class="row">
+        <div class="input-field col s6">
+        	<label>Código</label>
+			<input name="codigo" type="text" readonly="readonly" th:field="*{codigo}">
+       </div>
+      </div>
+      
+      <div class="row">
+        <div class="input-field col s6">
+        	<input id="nome" type="text" name="nome" class="validate" th:field="*{nome}">
+			<label for="nome">Nome</label>
+       </div>
+       
+       <div class="input-field col s6">
+        	<input id="cpf" type="text" name="cpf" class="validate" th:field="*{cpf}">
+			<label for="cpf">CPF</label>
+       </div>
+      </div>
+      
+      <div class="row" sec:authorize="hasRole('ROLE_TECNICO')">
+        <div class="input-field col s6">
+        	<input id="idade" type="text" name="idade" class="validate" th:field="*{idade}">
+			<label for="idade">Idade</label>
+       </div>
+       
+        <div class="input-field col 6">
+			<input id="telefone" type="text" name="telefone" class="validate" th:field="*{telefone}">
+			<label for="telefone">Telefone</label>
+       </div>
+       
+       <div class="input-field col s6">
+          <input id="email" type="email" class="validate" name="email" th:field="*{email}">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      
+      <div class="row">
+      	<div class="input-field col s6">
+      		<button class="btn waves-effect waves-light" type="submit">
+      		<i class="material-icons left">save</i>Salvar</button>
+      		
+      		<button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('formPessoa').reset();">
+      		<i class="material-icons left">add_box</i>Novo</button>
+      	</div>
+      </div>
+    </form>
+    
+  </div>
+  
+  <br>
+  <br>
+  
+  <form action="pesquisarpessoa" method="post" class="col s12 card-panel teal blue-grey lighten-4">
+  	
+  	<div class="row">
+      	<div class="input-field col s6">
+		  	<input id="nomePessoa" type="text" name="nomePessoa" placeholder="Buscar..."  class="validate">
+		  	<label for="nomePessoa">Pesquisar por nome: </label>
+		</div>
+	</div>
+  	
+  	<div class="row">
+      	<div class="input-field col s6">
+      		 <button class="btn waves-effect waves-light" type="submit" value="Pesquisar">Pesquisar
+			    <i class="material-icons left">search</i>
+			 </button>
+			 
+			 <a class="btn waves-effect waves-light" href="/listperson">Listar	Pessoas
+			 	<i class="material-icons left">list</i>
+			 </a>
+
+		</div>	
+    </div>
+  </form>
+  
+  <br>	  
+  <br>	  
+  
+  <table class="responsive-table striped card-panel teal blue-grey lighten-4">
+	
+		<thead>
+			<tr>
+				<th>CÓDIGO</th>
+				<th>NOME</th>
+				<th>CPF</th>
+				<th>IDADE</th>
+				<th>TELEFONE</th>
+				<th>E-MAIL</th>
+				<th>ATUALIZAR</th>
+				<th>EXCLUIR</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each = "pessoa: ${pessoas}">
+				<td><a th:href="@{/fones/{codigopessoa}(codigopessoa=${pessoa.codigo})}"><span th:text = "${pessoa.codigo}"></span></a></td>
+				<td th:text = "${pessoa.nome}"></td>
+				<td th:text = "${pessoa.cpf}"></td>
+				<td th:text = "${pessoa.idade}"></td>
+				<td th:text = "${pessoa.telefone}"></td>
+				<td th:text = "${pessoa.email}"></td>
+				
+				<td>
+				<a class="waves-effect waves-light btn-small"
+					th:href="@{/atualizarpessoa/{codigopessoa}(codigopessoa=${pessoa.codigo})}">Atualizar</a>
+				</td>
+				
+				<td>
+				<a class="waves-effect waves-light btn-small"
+					th:href="@{/excluirpessoa/{codigopessoa}(codigopessoa=${pessoa.codigo})}">Excluir</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/materialize/js/materialize.js"></script>
+</body>
+</html>
