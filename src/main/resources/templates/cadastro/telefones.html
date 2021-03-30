@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	
-	<div class="card-panel teal blue-grey lighten-4">
+	<div class="card-panel teal blue-grey lighten-4" style="font-weight: bold; font-size: 20px;">
 		<div th:each="p:${pessoaObject}">
 		<div class="row">
 			<h6>CÓDIGO: <span th:text="${p.codigo}"></span></h6>
@@ -58,7 +58,8 @@
 		
 			<form id="formTelefone" th:action="@{/addFonePerson/{pessoa_codigo}(pessoa_codigo=${pessoaObject.codigo})}" 
 				method="post" class="card-panel teal blue-grey lighten-4 col s12"
-				onsubmit="return validarCampos();">
+				onsubmit="return validarCampos();"
+				style="font-weight: bold; font-size: 20px;">
 			
 				<div class="row">
 					<div class="input-field col s6">
@@ -80,7 +81,7 @@
 						<label for="numero">Número</label>
 					</div>
 				</div>
-
+				
 				<div class="row">
 					<div class="input-field col s6">
 						<button class="btn waves-effect waves-light" type="submit">

@@ -5,6 +5,12 @@
 <head>
 <meta charset="utf-8">
 <title>curso springboot</title>
+
+<!-- Adicionando JQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -32,10 +38,12 @@
 	<div class="row">
 	
     <form id="formPessoa" class="col s12 card-panel teal blue-grey lighten-4" 
-    	action="salvarpessoa" method="post" th:object="${pessoaObject}">
+    	action="salvarpessoa" method="post" th:object="${pessoaObject}" style="font-weight: bold; font-size: 20px;">
+    
+      <p>Dados da Pessoa </p>
     
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s2">
         	<label>Código</label>
 			<input name="codigo" type="text" readonly="readonly" th:field="*{codigo}">
        </div>
@@ -47,19 +55,19 @@
 			<label for="nome">Nome</label>
        </div>
        
-       <div class="input-field col s6">
+       <div class="input-field col s3">
         	<input id="cpf" type="text" name="cpf" class="validate" th:field="*{cpf}">
 			<label for="cpf">CPF</label>
        </div>
       </div>
       
       <div class="row" >
-        <div class="input-field col s6" sec:authorize="hasRole('ROLE_CAIXA')">
+        <div class="input-field col s1" sec:authorize="hasRole('ROLE_CAIXA')">
         	<input id="idade" type="text" name="idade" class="validate" th:field="*{idade}">
 			<label for="idade">Idade</label>
        </div>
        
-        <div class="input-field col 6">
+        <div class="input-field col 3">
 			<input id="telefone" type="text" name="telefone" class="validate" th:field="*{telefone}">
 			<label for="telefone">Telefone</label>
        </div>
@@ -68,6 +76,48 @@
           <input id="email" type="email" class="validate" name="email" th:field="*{email}">
           <label for="email">Email</label>
         </div>
+      </div>
+      
+      <p>Dados do Endereço </p>
+      
+      <div class="row">
+      	<div class="input-field col s1">
+      		<label for="cep">Cep:</label>
+        	<input name="cep" type="text" id="cep" value="" size="10" maxlength="8" th:field="*{cep}"
+        	onblur="consultarCep();"/>
+      	</div>
+      	
+      	<div class="input-field col s5">
+        	<input name="rua" type="text" id="rua" size="60" th:field="*{rua}"/>
+        	<label for="rua">Logradouro:</label>
+      	</div>
+      	
+      	<div class="input-field col s1">
+      		<input name="numero" type="text" id="numero" size="10" th:field="*{numero}"/>
+        	<label for="numero">Número:</label>
+      	</div>
+      	
+      	<div class="input-field col s4">
+      		<input name="bairro" type="text" id="bairro" size="40" th:field="*{bairro}"/>
+        	<label for="bairro">Bairro:</label>
+      	</div>
+      </div>
+      
+      <div class="row">
+      	<div class="input-field col s6">
+        	<input name="cidade" type="text" id="cidade" size="40" th:field="*{cidade}"/>
+        	<label for="cidade">Cidade:</label>
+      	</div>
+      	
+      	<div class="input-field col s2">
+        	<input name="uf" type="text" id="uf" size="2" th:field="*{uf}"/>
+        	<label for="uf">Estado:</label>
+      	</div>
+      	
+      	<div class="input-field col s2">
+        	<input name="ibge" type="text" id="ibge" size="8" th:field="*{ibge}"/>
+        	<label for="ibge">IBGE:</label>
+      	</div>
       </div>
       
       <div class="row">
@@ -91,7 +141,7 @@
   	<div class="row">
       	<div class="input-field col s6">
 		  	<input id="nomePessoa" type="text" name="nomePessoa" placeholder="Buscar..."  class="validate">
-		  	<label for="nomePessoa">Pesquisar por nome: </label>
+		  	<label for="nomePessoa" style="font-size: 25px;">Pesquisar por nome: </label>
 		</div>
 	</div>
   	
@@ -149,5 +199,77 @@
 		</tbody>
 	</table>
 	
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+
+        function limpa_formulário_cep() {
+            // Limpa valores do formulário de cep.
+            $("#cep").val("");
+            $("#rua").val("");
+            $("#bairro").val("");
+            $("#numero").val("");
+            $("#cidade").val("");
+            $("#uf").val("");
+            $("#ibge").val("");
+        }
+        
+        //Quando o campo cep perde o foco.
+        $("#cep").blur(function() {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = $(this).val().replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if(validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    $("#rua").val("...");
+                    $("#numero").val("...");
+                    $("#bairro").val("...");
+                    $("#cidade").val("...");
+                    $("#uf").val("...");
+                    $("#ibge").val("...");
+
+                    //Consulta o webservice viacep.com.br/
+                    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                        if (!("erro" in dados)) {
+                            //Atualiza os campos com os valores da consulta.
+                            $("#rua").val(dados.logradouro);
+                            $("#numero").val(dados.numero);
+                            $("#bairro").val(dados.bairro);
+                            $("#cidade").val(dados.localidade);
+                            $("#uf").val(dados.uf);
+                            $("#ibge").val(dados.ibge);
+                        } //end if.
+                        else {
+                            //CEP pesquisado não foi encontrado.
+                            limpa_formulário_cep();
+                            alert("CEP não encontrado.");
+                            $('#cep').focus();
+                        }
+                    });
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        });
+    });
+	
+	</script>
 </body>
 </html>

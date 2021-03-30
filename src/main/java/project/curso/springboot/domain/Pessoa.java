@@ -34,21 +34,42 @@ public class Pessoa implements Serializable {
 	@NotNull(message = "CPF não pode ser nulo")
 	@NotEmpty(message = "CPF não pode ser vazio")
 	private String cpf;
-	
+
 	@Min(value = 18, message = "Idade inválida")
 	private Integer idade;
-	
+
 	@Column(length = 17)
 	private String telefone;
-	
+
 	@Column(length = 120)
 	@NotNull(message = "E-mail não pode ser nulo")
 	@NotEmpty(message = "E-mail não pode ser vazio")
 	private String email;
-	
-	//se relaciona com o objeto pessoa que foi declarado na classe de telefone
+
+	// se relaciona com o objeto pessoa que foi declarado na classe de telefone
 	@OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Telefone> telefones;
+
+	@Column(length = 9)
+	private String cep;
+
+	@Column(length = 60)
+	private String rua;
+
+	private Integer numero;
+
+	@Column(length = 60)
+	private String bairro;
+
+	@Column(length = 40)
+	private String cidade;
+
+	@Column(length = 2)
+	private String uf;
+
+	private Integer ibge;
+
+	/* Getters e Setters */
 
 	public Long getCodigo() {
 		return codigo;
@@ -104,6 +125,62 @@ public class Pessoa implements Serializable {
 
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getRua() {
+		return rua;
+	}
+
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public Integer getIbge() {
+		return ibge;
+	}
+
+	public void setIbge(Integer ibge) {
+		this.ibge = ibge;
 	}
 
 	@Override
