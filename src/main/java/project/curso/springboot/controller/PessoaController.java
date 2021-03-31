@@ -139,8 +139,17 @@ public class PessoaController {
 	public ModelAndView pesquisar(@RequestParam ("nomePessoa") String nomePessoa,
 								@RequestParam ("sexoPessoa") String sexoPessoa) {
 		
+		List<Pessoa> pessoas = new ArrayList<>();
+		
+		if (sexoPessoa != null && !sexoPessoa.isEmpty()) {
+			pessoas = pessoaRepository.findPessoaByNameSexo(nomePessoa, sexoPessoa);
+		} else {
+			pessoas = pessoaRepository.findPessoaByName(nomePessoa);
+		}
+		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
-		mav.addObject("pessoas", pessoaRepository.findPessoaByName(nomePessoa));
+		mav.addObject("pessoas", pessoas);//o codigo abaixo foi substituído pela lista de pessoas
+		//mav.addObject("pessoas", pessoaRepository.findPessoaByName(nomePessoa));
 		mav.addObject("pessoaObject", new Pessoa());//retorna um object vazio
 		return mav;
 		
