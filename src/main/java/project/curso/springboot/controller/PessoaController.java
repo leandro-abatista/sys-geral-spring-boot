@@ -149,11 +149,13 @@ public class PessoaController {
 		List<Pessoa> pessoas = new ArrayList<>();
 		
 		if (nomePessoa != null && !nomePessoa.isEmpty()) {
+			
 			pessoas = pessoaRepository.findPessoaByName(nomePessoa);
-		}else
-		if (sexoPessoa != null && !sexoPessoa.isEmpty()) {
+			
+		} else if (sexoPessoa != null && !sexoPessoa.isEmpty()) {
+			
 			pessoas = pessoaRepository.findPessoaByNameSexo(nomePessoa, sexoPessoa);
-		} 
+		}
 		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		mav.addObject("pessoas", pessoas);//o codigo abaixo foi substituído pela lista de pessoas
@@ -168,9 +170,44 @@ public class PessoaController {
 			@RequestParam ("nomePessoa") String nomePessoa,
 			@RequestParam ("sexoPessoa") String sexoPessoa,
 			HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws Exception {
 		
-		System.out.println("teste");
+		List<Pessoa> pessoas = new ArrayList<>();
+		
+		if (sexoPessoa != null && !sexoPessoa.isEmpty() && nomePessoa != null && !nomePessoa.isEmpty()) {/*busca por nome e sexo*/
+			
+			pessoas = pessoaRepository.findPessoaByNameSexo(nomePessoa, sexoPessoa);
+			
+		} else if (nomePessoa != null && !nomePessoa.isEmpty()) {/*busca por nome*/
+			
+			pessoas = pessoaRepository.findPessoaByName(nomePessoa);
+			
+		} else if (sexoPessoa != null && !sexoPessoa.isEmpty()) {
+			
+			pessoas = pessoaRepository.findPessoaBySexo(sexoPessoa);
+			
+		} else {
+			Iterable<Pessoa> iterable = pessoaRepository.findAll();/*busca todos*/
+			/*varrenndo o iterable com for*/
+			for (Pessoa pessoa : iterable) {
+				pessoas.add(pessoa);
+			}
+		}
+		
+		/*Chama o serviço que faz a geração do relatório | rel_pessoas -> arquivo jasper*/
+		byte[] pdf = reportUtil.gerarRelatorio(pessoas, "rel_pessoas", request.getServletContext());
+		/*Tamanho da resosta do navegador*/
+		response.setContentLength(pdf.length);//navgeador saber o tamanho da resposta
+		/*Definir na resposta o tipo de arquivo */
+		response.setContentType("application/octet-stream");
+		/*Definir o cabeçalho da resposta*/
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment: filename=\"%s\"", "relatorio.pdf");
+		response.setHeader(headerKey, headerValue);
+		
+		/*Finaliza a resposta para o navegador*/
+		response.getOutputStream().write(pdf);
+		
 	}
 	
 	/**
