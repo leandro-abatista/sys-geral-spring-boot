@@ -153,15 +153,20 @@
 	  	
 	  	<div class="row">
 	  	
+	  		<div class="input-field col s2">
+			  	<input id="codigoPessoa" type="text" name="codigoPessoa" placeholder="Buscar..."  class="validate">
+			  	<label for="codigoPessoa" style="font-size: 20px;">Pesquisar por código: </label>
+			</div>
+	  	
 	      	<div class="input-field col s4">
 			  	<input id="nomePessoa" type="text" name="nomePessoa" placeholder="Buscar..."  class="validate">
 			  	<label for="nomePessoa" style="font-size: 20px;">Pesquisar por nome: </label>
 			</div>
 			
 			<div class=".input-field col s2">
-			  	<label for="sexoPessoa" class="active" style="font-size: 20px;">Pesquisar por sexo:</label>
+			  	<label for="sexoPessoa" style="font-size: 16px;">Pesquisar por sexo:</label>
 			  	<select class="browser-default" name="sexoPessoa" id="sexoPessoa">
-			      <option value="">Todos</option>
+			      <option value="">Selecione</option>
 			      <option value="Masculino" th:text="Masculino">
 	          	  <option value="Feminino" th:text="Feminino">
 			    </select>

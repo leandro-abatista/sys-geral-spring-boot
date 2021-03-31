@@ -136,16 +136,19 @@ public class PessoaController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "**/pesquisarpessoa")
-	public ModelAndView pesquisar(@RequestParam ("nomePessoa") String nomePessoa,
-								@RequestParam ("sexoPessoa") String sexoPessoa) {
+	public ModelAndView pesquisar(
+			@RequestParam ("nomePessoa") String nomePessoa,
+			@RequestParam ("sexoPessoa") String sexoPessoa
+			) {
 		
 		List<Pessoa> pessoas = new ArrayList<>();
 		
+		if (nomePessoa != null && !nomePessoa.isEmpty()) {
+			pessoas = pessoaRepository.findPessoaByName(nomePessoa);
+		}else
 		if (sexoPessoa != null && !sexoPessoa.isEmpty()) {
 			pessoas = pessoaRepository.findPessoaByNameSexo(nomePessoa, sexoPessoa);
-		} else {
-			pessoas = pessoaRepository.findPessoaByName(nomePessoa);
-		}
+		} 
 		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		mav.addObject("pessoas", pessoas);//o codigo abaixo foi substituído pela lista de pessoas
