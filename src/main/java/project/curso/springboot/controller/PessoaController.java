@@ -136,11 +136,14 @@ public class PessoaController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "**/pesquisarpessoa")
-	public ModelAndView pesquisar(@RequestParam ("nomePessoa") String nomePessoa) {
+	public ModelAndView pesquisar(@RequestParam ("nomePessoa") String nomePessoa,
+								@RequestParam ("sexoPessoa") String sexoPessoa) {
+		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		mav.addObject("pessoas", pessoaRepository.findPessoaByName(nomePessoa));
 		mav.addObject("pessoaObject", new Pessoa());//retorna um object vazio
 		return mav;
+		
 	}
 	
 	/**

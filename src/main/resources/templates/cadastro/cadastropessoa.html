@@ -72,21 +72,20 @@
 			<label for="telefone">Telefone:</label>
        </div>
        
-       <div class="input-field col s6">
+       <div class="input-field col s5">
           <input id="email" type="email" class="validate" name="email" th:field="*{email}">
           <label for="email">Email:</label>
         </div>
         
-      </div>
-      
-      <div class="row">
         <div class="input-field col s2">
-	          <select class="browser-default" th:field="*{sexo}">
-	          	<option value="" disabled selected>Selecione</option>
-	          	<option value="Masculino" th:text="MASCULINO">
-	          	<option value="Feminino" th:text="FEMININO">
-	          </select>
+        	<label>Sexo:</label>
+	        <select class="browser-default"  th:field="*{sexo}">
+	          <option value="" disabled selected>Selecione</option>
+	          <option value="Masculino" th:text="Masculino">
+	          <option value="Feminino" th:text="Feminino">
+	        </select>
         </div>
+        
       </div>
       
       <p>Dados do Endereço </p>
@@ -147,28 +146,44 @@
   <br>
   <br>
   
-  <form action="pesquisarpessoa" method="post" class="col s12 card-panel teal blue-grey lighten-4">
-  	
-  	<div class="row">
-      	<div class="input-field col s6">
-		  	<input id="nomePessoa" type="text" name="nomePessoa" placeholder="Buscar..."  class="validate">
-		  	<label for="nomePessoa" style="font-size: 25px;">Pesquisar por nome: </label>
+  <fieldset style="border: 2px solid; font-weight: bold;">
+  <legend>Campo de Pesquisa</legend>
+  
+	  <form action="pesquisarpessoa" method="post" class="col s12 card-panel teal blue-grey lighten-4">
+	  	
+	  	<div class="row">
+	  	
+	      	<div class="input-field col s4">
+			  	<input id="nomePessoa" type="text" name="nomePessoa" placeholder="Buscar..."  class="validate">
+			  	<label for="nomePessoa" style="font-size: 20px;">Pesquisar por nome: </label>
+			</div>
+			
+			<div class=".input-field col s2">
+			  	<label for="sexoPessoa" class="active" style="font-size: 20px;">Pesquisar por sexo:</label>
+			  	<select class="browser-default" name="sexoPessoa" id="sexoPessoa">
+			      <option value="" disabled selected>Selecione</option>
+			      <option value="Masculino" th:text="Masculino">
+	          	  <option value="Feminino" th:text="Feminino">
+			    </select>
+			</div>
+			
 		</div>
-	</div>
-  	
-  	<div class="row">
-      	<div class="input-field col s6">
-      		 <button class="btn waves-effect waves-light" type="submit" value="Pesquisar">Pesquisar
-			    <i class="material-icons left">search</i>
-			 </button>
-			 
-			 <a class="btn waves-effect waves-light" href="/listperson">Listar	Pessoas
-			 	<i class="material-icons left">list</i>
-			 </a>
-
-		</div>	
-    </div>
-  </form>
+	  	
+	  	<div class="row">
+	      	<div class="input-field col s6">
+	      		 <button class="btn waves-effect waves-light" type="submit" value="Pesquisar">Pesquisar
+				    <i class="material-icons left">search</i>
+				 </button>
+				 
+				 <a class="btn waves-effect waves-light" href="/listperson">Listar	Pessoas
+				 	<i class="material-icons left">list</i>
+				 </a>
+	
+			</div>	
+	    </div>
+	  </form>
+	  
+  </fieldset>
   
   <br>	  
   <br>	  
