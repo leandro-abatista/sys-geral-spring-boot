@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public class PessoaController {
 	
 	@Autowired//pode ser resources também (Tanto autowired, como resources, são injeções de dependência)
 	private TelefoneRepository telefoneRepository;
+	
+	@Autowired//pode ser resources também (Tanto autowired, como resources, são injeções de dependência)
+	private ReportUtil reportUtil;
 	
 	/**
 	 * Método de inicialização da tela de cadastro de pessoa
@@ -156,6 +161,16 @@ public class PessoaController {
 		mav.addObject("pessoaObject", new Pessoa());//retorna um object vazio
 		return mav;
 		
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "**/pesquisarpessoa")
+	public void imprimePdf(
+			@RequestParam ("nomePessoa") String nomePessoa,
+			@RequestParam ("sexoPessoa") String sexoPessoa,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		System.out.println("teste");
 	}
 	
 	/**
