@@ -34,30 +34,38 @@
 		</div>
 	</div>
 	
-	<div class="card-panel teal blue-grey lighten-4" style="font-weight: bold; font-size: 20px;">
+	<div class="card-panel teal blue-grey darken-1" style="font-weight: bold; font-size: 17px; color: #FFA500;">
+	
+	<fieldset style="border: 2px solid; font-weight: bold;">
+	  <legend>Dados da Pessoa</legend>
+	
 		<div th:each="p:${pessoaObject}">
-		<div class="row">
-			<h5>Dados da Pessoa</h5>
-			<h6>Código: <span th:text="${p.codigo}"></span></h6>
-			<h6>Nome: <span th:text="${p.nome}"></span></h6>
-			<h6>CPF: <span th:text="${p.cpf}"></span></h6>
-			<h6>Idade: <span th:text="${p.idade}"></span></h6>
-			<h6>Telefone: <span th:text="${p.telefone}"></span></h6>
-			<h6>E-mail: <span th:text="${p.email}"></span></h6>
+			<div class="row">
+				<h6>Código: <span th:text="${p.codigo}"></span></h6>
+				<h6>Nome: <span th:text="${p.nome}"></span></h6>
+				<h6>CPF: <span th:text="${p.cpf}"></span></h6>
+				<h6>Idade: <span th:text="${p.idade}"></span></h6>
+				<h6>Telefone: <span th:text="${p.telefone}"></span></h6>
+				<h6>E-mail: <span th:text="${p.email}"></span></h6>
+			</div>
 		</div>
-		</div>
+		
+	</fieldset>
+		
 	</div>
 	
 	<br>
 	
-	<div class="row">
 	
 		<center><h5>Cadastro de Telefones</h5></center>
 		
 			<form id="formTelefone" th:action="@{/addFonePerson/{pessoa_codigo}(pessoa_codigo=${pessoaObject.codigo})}" 
-				method="post" class="card-panel teal blue-grey lighten-4 col s12"
+				method="post" class="card-panel teal blue-grey darken-1 col s12"
 				onsubmit="return validarCampos();"
-				style="font-weight: bold; font-size: 20px;">
+				style="font-weight: bold; font-size: 17px;">
+				
+				<fieldset style="border: 2px solid; font-weight: bold; color: #FFA500;">
+	  			<legend>Dados do Telefone da Pessoa</legend>
 			
 				<div class="row">
 					<div class="input-field col s2">
@@ -92,14 +100,15 @@
 						</button>
 					</div>
 				</div>
+				
+			</fieldset>
 
 		</form>
 		
-	</div>
 	
-	<table class="responsive-table striped card-panel teal blue-grey lighten-4">
+	<table class="responsive-table striped card-panel teal blue-grey darken-1">
 	
-		<thead>
+		<thead style="color: #FFA500;">
 			<tr>
 				<th>CÓDIGO</th>
 				<th>TIPO</th>
@@ -108,7 +117,7 @@
 			</tr>
 		</thead>
 		
-		<tbody>
+		<tbody style="color: #000080; font-weight: bold;">
 			<tr th:each = "fone: ${telefones}">
 				<td th:text="${fone.codigo}"></td>
 				<td th:text="${fone.tipo}"></td>

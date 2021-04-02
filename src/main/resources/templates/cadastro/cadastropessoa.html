@@ -35,12 +35,12 @@
 			<span th:text="${m}"></span>
 		</div>
 	<br>
-	<div class="row">
 	
-    <form id="formPessoa" class="col s12 card-panel teal blue-grey lighten-4" 
-    	action="salvarpessoa" method="post" th:object="${pessoaObject}" style="font-weight: bold; font-size: 20px;">
+    <form id="formPessoa" class="col s12 card-panel teal blue-grey darken-1" 
+    	action="salvarpessoa" method="post" th:object="${pessoaObject}">
     
-      <p>Dados da Pessoa </p>
+      <fieldset style="border: 2px solid; font-weight: bold;">
+	  <legend>Dados pessoais da pessoa</legend>
     
       <div class="row">
         <div class="input-field col s2">
@@ -77,18 +77,21 @@
           <label for="email">Email:</label>
         </div>
         
-        <div class="input-field col s2">
-        	<label>Sexo:</label>
-	        <select class="browser-default"  th:field="*{sexo}">
-	          <option value="" disabled selected>Selecione</option>
-	          <option value="Masculino" th:text="Masculino">
-	          <option value="Feminino" th:text="Feminino">
+        <div class=".input-field col s2">
+        	<label for="sexoPessoa" style="font-size: 16px;">Sexo:</label>
+	        <select id="sexoPessoa" class="browser-default"  th:field="*{sexo}">
+	            <option value="">Selecione</option>
+			    <option value="Masculino" th:text="Masculino">
+				<option value="Feminino" th:text="Feminino">
 	        </select>
         </div>
         
       </div>
       
-      <p>Dados do Endereço </p>
+      </fieldset>
+      
+      <fieldset style="border: 2px solid; font-weight: bold;">
+	  <legend>Dados do Endereço</legend>
       
       <div class="row">
       	<div class="input-field col s1">
@@ -139,71 +142,73 @@
       		<i class="material-icons left">add_box</i>Novo</button>
       	</div>
       </div>
+      
+      </fieldset>
+      
     </form>
     
-  </div>
-  
-  <br>
-  <br>
-  
-  <fieldset style="border: 2px solid; font-weight: bold;">
-  <legend>Campo de Pesquisa</legend>
-  
-	  <form id="pesquisarPessoa" action="pesquisarpessoa" method="post" class="col s12 card-panel teal blue-grey lighten-4">
-	  	
-	  	<div class="row">
-	  	
-	  		<div class="input-field col s2">
-			  	<input id="codigoPessoa" type="text" name="codigoPessoa" placeholder="Buscar..."  class="validate">
-			  	<label for="codigoPessoa" style="font-size: 20px;">Pesquisar por código: </label>
+
+	<form id="pesquisarPessoa" action="pesquisarpessoa" method="post"
+		class="col s12 card-panel teal blue-grey darken-1">
+
+		<fieldset style="border: 2px solid; font-weight: bold;">
+		<legend>Campo de Pesquisa</legend>
+
+			<div class="row">
+
+				<div class="input-field col s2">
+					<input id="codigoPessoa" type="text" name="codigoPessoa"
+						placeholder="Buscar..." class="validate"> 
+					<label for="codigoPessoa" style="font-size: 20px;">Pesquisar por código: </label>
+				</div>
+
+				<div class="input-field col s4">
+					<input id="nomePessoa" type="text" name="nomePessoa"
+						placeholder="Buscar..." class="validate"> 
+					<label for="nomePessoa" style="font-size: 20px;">Pesquisar por nome: </label>
+				</div>
+
+				<div class=".input-field col s2">
+					<label for="sexoPessoa" style="font-size: 16px;">Pesquisar por sexo: </label> 
+					<select class="browser-default" name="sexoPessoa" id="sexoPessoa">
+						<option value="">Selecione</option>
+						<option value="Masculino" th:text="Masculino">
+						<option value="Feminino" th:text="Feminino">
+					</select>
+				</div>
+
 			</div>
-	  	
-	      	<div class="input-field col s4">
-			  	<input id="nomePessoa" type="text" name="nomePessoa" placeholder="Buscar..."  class="validate">
-			  	<label for="nomePessoa" style="font-size: 20px;">Pesquisar por nome: </label>
+
+			<div class="row">
+				<div class="input-field col s6">
+					<button class="btn waves-effect waves-light" type="submit"
+						value="Pesquisar">
+						Pesquisar <i class="material-icons left">search</i>
+					</button>
+
+					<a class="btn waves-effect waves-light" href="/listperson">Listar
+						Pessoas <i class="material-icons left">list</i>
+					</a>
+
+
+				</div>
+
+				<div class="input-field col s6">
+					<button class="btn waves-effect waves-light right" type="submit"
+						value="PDF"
+						onclick="document.getElementById('pesquisarPessoa').method = 'get'">
+						PDF <i class="material-icons left">picture_as_pdf</i>
+					</button>
+				</div>
 			</div>
-			
-			<div class=".input-field col s2">
-			  	<label for="sexoPessoa" style="font-size: 16px;">Pesquisar por sexo:</label>
-			  	<select class="browser-default" name="sexoPessoa" id="sexoPessoa">
-			      <option value="">Selecione</option>
-			      <option value="Masculino" th:text="Masculino">
-	          	  <option value="Feminino" th:text="Feminino">
-			    </select>
-			</div>
-			
-		</div>
-	  	
-	  	<div class="row">
-	      	<div class="input-field col s6">
-	      		 <button class="btn waves-effect waves-light" type="submit" value="Pesquisar">Pesquisar
-				    <i class="material-icons left">search</i>
-				 </button>
-				 
-				 <a class="btn waves-effect waves-light" href="/listperson">Listar	Pessoas
-				 	<i class="material-icons left">list</i>
-				 </a>
+
+		</fieldset>
+
+	</form>
+
+  <table class="responsive-table striped card-panel teal blue-grey darken-1">
 	
-				
-			</div>
-			
-			<div class="input-field col s6">
-				<button class="btn waves-effect waves-light right" type="submit" value="PDF" 
-				onclick="document.getElementById('pesquisarPessoa').method = 'get'">PDF
-				    <i class="material-icons left">picture_as_pdf</i>
-				 </button>
-			</div>	
-	    </div>
-	  </form>
-	  
-  </fieldset>
-  
-  <br>	  
-  <br>	  
-  
-  <table class="responsive-table striped card-panel teal blue-grey lighten-4">
-	
-		<thead>
+		<thead style="color: #FFA500;">
 			<tr>
 				<th>CÓDIGO</th>
 				<th>NOME</th>
@@ -216,7 +221,7 @@
 			</tr>
 		</thead>
 		
-		<tbody>
+		<tbody style="color: #000080; font-weight: bold;">
 			<tr th:each = "pessoa: ${pessoas}">
 				<td><a th:href="@{/fones/{codigopessoa}(codigopessoa=${pessoa.codigo})}"><span th:text = "${pessoa.codigo}"></span></a></td>
 				<td th:text = "${pessoa.nome}"></td>

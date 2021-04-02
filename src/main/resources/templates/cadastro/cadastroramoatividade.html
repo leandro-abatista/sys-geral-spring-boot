@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title>curso springboot</title>
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Compiled and minified CSS CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</head>
+<body>
+
+	<h3>Spring Boot + Thymeleaf + Materialize CSS Design</h3>
+	<br>
+	<center><h5>Cadastro de Ramo de Atividade</h5></center>	
+	<br>
+		<!-- validação de mensagens -->
+		<div th:each="m: ${msg}">
+			<span th:text="${m}"></span>
+		</div>
+	<br>
+
+	<div class="container">
+
+		<form id="formRamoAtividade" action="saveramoatividade" method="post" 
+			class="col s12 card-panel teal blue-grey darken-1"
+			style="font-weight: bold; font-size: 20px;" th:object="${ramoAtividadeObject}"
+			onsubmit="return validarCampos();">
+
+			<fieldset style="font-weight: bold; font-size: 17px; border: 2px solid; color: #FFA500;">
+			<legend>Dados do Ramo de Atividade</legend>
+				
+				<div class="row">
+					<div class="input-field col s2">
+						<label for="codigo">Código:</label>
+						<input name="codigo" type="text" readonly="readonly" th:field="*{codigo}">
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="nome" type="text" name="nome" class="validate" th:field="*{nome}"> 
+						<label for="nome">Nome:</label>
+					</div>
+				</div>
+				
+				<div class="row">
+			      	<div class="input-field col s6">
+			      		<button class="btn waves-effect waves-light" type="submit">
+			      		<i class="material-icons left">save</i>Salvar</button>
+			      		
+			      		<button class="btn waves-effect waves-light" type="submit" 
+			      		onclick="document.getElementById('formRamoAtividade').reset();">
+			      		<i class="material-icons left">add_box</i>Novo</button>
+			      	</div>
+      			</div>
+				
+			</fieldset>
+			
+		</form>
+
+	</div>
+	
+	<br>
+	
+	<div class="container">
+	
+		<table id="tabelaRamoAtividade" class="responsive-table striped card-panel teal blue-grey darken-1">
+			<thead style="color: #FFA500;">
+				<tr>
+					<th>CÓDIGO</th>
+					<th>RAMO DE ATIVIDADE</th>
+					<th>ATUALIZAR</th>
+					<th>EXCLUIR</th>
+				</tr>
+			</thead>
+			
+			<tbody style="color: #000080; font-weight: bold;">
+				<tr th:each = "ramoAtividade: ${ramosDeAtividades}">
+					<td th:text="${ramoAtividade.codigo}"></td>
+					<td th:text="${ramoAtividade.nome}"></td>
+					
+					<td>
+						<a class="waves-effect waves-light btn-small" 
+						th:href="@{/updateramodeatividade/{codigoramoatividade}(codigoramoatividade=${ramoAtividade.codigo})}">Atualizar</a>
+					</td>
+					
+					<td>
+						<a class="waves-effect waves-light btn-small" 
+						th:href="@{/deleteramodeatividade/{codigoramoatividade}(codigoramoatividade=${ramoAtividade.codigo})}">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+	</div>
+
+	<script type="text/javascript">
+
+	/*validação dos campos*/
+	function validarCampos(){
+		nome = document.getElementById('nome').value;
+
+		if(nome === ''){
+			alert('Nome do Ramo de Atividade deve ser informado!');
+			return false;
+		} 
+		return true;
+	}
+	
+	</script>
+</body>
+</html>
