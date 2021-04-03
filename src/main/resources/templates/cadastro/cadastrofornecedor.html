@@ -24,7 +24,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 </head>
-<body>
+<body onload="time();">
 
 	<h3>Spring Boot + Thymeleaf + Materialize CSS Design</h3>
 	<br>
@@ -82,12 +82,14 @@
 			</div>
 			
 			<div class="input-field col s3">
-				<input id="dataCadastro" type="text" class=" validate" name="dataCadastro" th:field="*{dataCadastro}">
-          		<label for="dataCadastro">Data de Cadastro:</label>
+				<input id="dataCadastro" type="text" class="validate" name="dataCadastro" th:field="*{dataCadastro}" 
+				 size="10">
+          		<label for="dataCadastro" style="font-size: 17px;">Data de Cadastro:</label>
 			</div>
 			
 			<div class="input-field col s3">
-				<input id="dataFundacao" type="text" class=" validate" name="dataFundacao" th:field="*{dataFundacao}">
+				<input id="dataFundacao" type="text" class="validate" name="dataFundacao" th:field="*{dataFundacao}" 
+				 size="10">
           		<label for="dataFundacao">Data de Fundação Empresa:</label>
 			</div>
 		</div>
@@ -152,7 +154,8 @@
 	
 	</form>
 	
-	<form id="formPesquisaFornecedor" class="col s12 card-panel teal blue-grey darken-1">
+	<form id="formPesquisaFornecedor" class="col s12 card-panel teal blue-grey darken-1"
+	 action="searchprovider" method="post">
 	
 		<fieldset style="border: 2px solid; font-weight: bold;">
 		<legend>Campo de Pesquisa</legend>
@@ -164,8 +167,8 @@
 				</div>
 				
 				<div class="input-field col s4">
-					<input id="nomePessoa" type="text" name="nomePessoa" placeholder="Buscar..." class="validate"> 
-					<label for="nomePessoa" style="font-size: 20px;">Pesquisar por Razão Social: </label>
+					<input id="pesquisarPorRazaoSocial" type="text" name="pesquisarPorRazaoSocial" placeholder="Buscar..." class="validate"> 
+					<label for="pesquisarPorRazaoSocial" style="font-size: 20px;">Pesquisar por Razão Social: </label>
 				</div>
 				
 				<div class="input-field col s4">
@@ -231,12 +234,16 @@
 	
     <script type="text/javascript">
 
-    document.addEventListener('DOMContentLoaded', function(){
-		var elems = document.querySelectorAll('.datepicker');
-		var instances = M.Datepicker.init(elems, options);
-    })
-    
-    /**/
+    function time() {
+	    today=new Date();
+	    h=today.getHours();
+	    m=today.getMinutes();
+	    s=today.getSeconds();
+	    document.getElementById('#dataCadastro').innerHTML=h+":"+m+":"+s;
+	    setTimeout('time()',500);
+    }
+	    
+    /*cep*/
     $(document).ready(function(){
 		$('.datepicker').datepicker();
     });

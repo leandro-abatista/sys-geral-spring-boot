@@ -1,5 +1,7 @@
 package project.curso.springboot.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.curso.springboot.domain.Fornecedor;
@@ -86,12 +89,39 @@ public class FornecedorController {
 		return mav;
 	}
 	
+	/**
+	 * Método para excluir um registro de fornecedor
+	 * @param codigoFornecedor
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/deleteprovider/{codigoFornecedor}")
 	public ModelAndView delete(@PathVariable ("codigoFornecedor") Long codigoFornecedor) {
 		
 		fornecedorRepository.deleteById(codigoFornecedor);
 		ModelAndView mav = new ModelAndView("cadastro/cadastrofornecedor");
 		mav.addObject("fornecedores", fornecedorRepository.findAll());
+		mav.addObject("fornecedorObject", new Fornecedor());
+		
+		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "**/searchprovider")
+	public ModelAndView pesquisar(@RequestParam ("codigoFornecedor") Long codigoFornecedor,
+			@RequestParam ("pesquisarPorRazaoSocial") String pesquisarPorRazaoSocial) {
+		
+		List<Fornecedor> fornecedors = new ArrayList<>();
+		
+		if (codigoFornecedor != null) {
+			
+			fornecedors = fornecedorRepository.findProvidersByCodigo(codigoFornecedor);
+			
+		} else if (pesquisarPorRazaoSocial != null && !pesquisarPorRazaoSocial.isEmpty()) {
+			
+			fornecedors = fornecedorRepository.findProvidersByRazaoSocial(codigoFornecedor, pesquisarPorRazaoSocial);
+		}
+		
+		ModelAndView mav = new ModelAndView("cadastro/cadastrofornecedor");
+		mav.addObject("fornecedores", fornecedors);
 		mav.addObject("fornecedorObject", new Fornecedor());
 		
 		return mav;

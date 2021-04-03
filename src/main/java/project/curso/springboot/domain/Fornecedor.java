@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,10 +40,10 @@ public class Fornecedor implements Serializable {
 	@Column(nullable = true, length = 120)
 	private String email;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFundacao;
 
 	@Column(length = 9)
