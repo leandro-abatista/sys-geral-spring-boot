@@ -34,7 +34,7 @@
 	
 	<br>
 	<form id="formFornecedor" class="col s12 card-panel teal blue-grey darken-1" 
-		 >
+		 action="saveprovider" method="post" th:object="${fornecedorObject}">
 		
 		<fieldset style="border: 2px solid; font-weight: bold; font-size: 17px;">
 		<legend>Dados do Fornecedor</legend>
@@ -42,53 +42,53 @@
 		<div class="row">
 			<div class="input-field col s2">
 				<label for="codigo">Código:</label>
-				<input name="codigo" type="text" readonly="readonly">
+				<input id="codigo" name="codigo" type="text" readonly="readonly" th:field="*{codigo}">
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="input-field col s6">
-				<input id="razaoSocial" type="text" name="razaoSocial" class="validate">
+				<input id="razaoSocial" type="text" name="razaoSocial" class="validate" th:field="*{razaoSocial}">
 				<label for="razaoSocial">Razão Social:</label>
 			</div>
 			
 			<div class="input-field col s6">
-				<input id="nomeFantasia" type="text" name="nomeFantasia" class="validate">
+				<input id="nomeFantasia" type="text" name="nomeFantasia" class="validate" th:field="*{nomeFantasia}">
 				<label for="nomeFantasia">Nome Fantasia:</label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="input-field col s3">
-				<input id="cnpj" type="text" name="cnpj" class="validate">
+				<input id="cnpj" type="text" name="cnpj" class="validate" th:field="*{cnpj}">
 				<label for="cnpj">CNPJ:</label>
 			</div>
 			
 			<div class="input-field col s3">
-				<input id="inscricaoEstadual" type="text" name="inscricaoEstadual" class="validate">
+				<input id="inscricaoEstadual" type="text" name="inscricaoEstadual" class="validate" th:field="*{inscricaoEstadual}">
 				<label for="inscricaoEstadual">Inscrição Estadual:</label>
 			</div>	
 			
 			<div class="input-field col s3">
-				<input id="inscricaoMunicipal" type="text" name="inscricaoMunicipal" class="validate">
+				<input id="inscricaoMunicipal" type="text" name="inscricaoMunicipal" class="validate" th:field="*{inscricaoMunicipal}">
 				<label for="inscricaoMunicipal">Inscrição Municipal:</label>
 			</div>	
 		</div>
 		
 		<div class="row">
 			<div class="input-field col s6">
-				<input id="email" type="email" class="validate" name="email">
+				<input id="email" type="email" class="validate" name="email" th:field="*{email}">
           		<label for="email">Email:</label>
 			</div>
 			
 			<div class="input-field col s3">
-				<input id="dataCadastro" type="text" class="validate" name="dataCadastro">
-          		<label for="dataCadastro">Data Cadastro:</label>
+				<input id="dataCadastro" type="text" class=" validate" name="dataCadastro" th:field="*{dataCadastro}">
+          		<label for="dataCadastro">Data de Cadastro:</label>
 			</div>
 			
 			<div class="input-field col s3">
-				<input id="dataFundacao" type="text" class="validate" name="dataFundacao">
-          		<label for="dataFundacao">Data Fundação Empresa:</label>
+				<input id="dataFundacao" type="text" class=" validate" name="dataFundacao" th:field="*{dataFundacao}">
+          		<label for="dataFundacao">Data de Fundação Empresa:</label>
 			</div>
 		</div>
 		
@@ -100,39 +100,39 @@
 			<div class="row">
 		      	<div class="input-field col s1">
 		      		<label for="cep">Cep:</label>
-		        	<input name="cep" type="text" id="cep" value="" size="10" maxlength="8"
-		        	onblur="consultarCep();"/>
+		        	<input name="cep" type="text" id="cep" class="validate" value="" size="10" maxlength="8"
+		        	onblur="consultarCep();" th:field="*{cep}"/>
 		      	</div>
       	
 		      	<div class="input-field col s5">
-		        	<input name="rua" type="text" id="rua" size="60" />
+		        	<input name="rua" type="text" id="rua" class="validate" size="60" th:field="*{rua}"/>
 		        	<label for="rua">Logradouro:</label>
 		      	</div>
       	
 		      	<div class="input-field col s1">
-		      		<input name="numero" type="text" id="numero" size="10" />
+		      		<input name="numero" type="text" id="numero" class="validate" size="10" th:field="*{numero}"/>
 		        	<label for="numero">Número:</label>
 		      	</div>
       	
 		      	<div class="input-field col s4">
-		      		<input name="bairro" type="text" id="bairro" size="40" />
+		      		<input name="bairro" type="text" id="bairro" class="validate" size="40" th:field="*{bairro}"/>
 		        	<label for="bairro">Bairro:</label>
 		      	</div>
       		</div>
       
 	        <div class="row">
 		      	<div class="input-field col s6">
-		        	<input name="cidade" type="text" id="cidade" size="40" />
+		        	<input name="cidade" type="text" id="cidade" class="validate" size="40" th:field="*{cidade}"/>
 		        	<label for="cidade">Cidade:</label>
 		      	</div>
 		      	
 		      	<div class="input-field col s2">
-		        	<input name="uf" type="text" id="uf" size="2"/>
+		        	<input name="uf" type="text" id="uf" class="validate" size="2" th:field="*{uf}"/>
 		        	<label for="uf">Estado:</label>
 		      	</div>
 		      	
 		      	<div class="input-field col s2">
-		        	<input name="ibge" type="text" id="ibge" size="8" />
+		        	<input name="ibge" type="text" id="ibge" class="validate" size="8" th:field="*{ibge}"/>
 		        	<label for="ibge">IBGE:</label>
 		      	</div>
 	        </div>
@@ -144,7 +144,8 @@
 	      		<button class="btn waves-effect waves-light" type="submit">
 	      		<i class="material-icons left">save</i>Salvar</button>
 	      		
-	      		<button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('formPessoa').reset();">
+	      		<button class="btn waves-effect waves-light" type="submit" 
+	      		onclick="document.getElementById('formFornecedor').reset();">
 	      		<i class="material-icons left">add_box</i>Novo</button>
 	      	</div>
         </div>
@@ -178,51 +179,136 @@
 		<div class="row">
 			<div class="input-field col s6">
 				<button class="btn waves-effect waves-light" type="submit" value="Pesquisar">
-						Pesquisar <i class="material-icons left">search</i>
+					Pesquisar <i class="material-icons left">search</i>
 				</button>
 
-					<a class="btn waves-effect waves-light" href="/listfornecedores">Listar Fornecedores 
-						<i class="material-icons left">list</i>
-					</a>
-
-
+				<a class="btn waves-effect waves-light" href="/listfornecedores">Listar Fornecedores 
+					<i class="material-icons left">list</i>
+				</a>
 			</div>
 
 			<div class="input-field col s6">
 				<button class="btn waves-effect waves-light right" type="submit" value="PDF"
-						onclick="document.getElementById('pesquisarPessoa').method = 'get'">
-						PDF <i class="material-icons left">picture_as_pdf</i>
+					onclick="document.getElementById('pesquisarPessoa').method = 'get'">
+					PDF <i class="material-icons left">picture_as_pdf</i>
 				</button>
 			</div>
 		</div>
-	
 	</form>
 	
 	<table id="tabelaFornecedor" class="responsive-table centered striped highlight card-panel teal blue-grey darken-1">
 	<caption style="font-size: 25px;">Registros dos Fornecedores</caption>
 		<thead style="color: #FFA500;">
 			<tr>
-				<th>A</th>
-				<th>B</th>
-				<th>C</th>
+				<th>CÓDIGO</th>
+				<th>RAZÃO SOCIAL</th>
+				<th>CNPJ</th>
+				<th>E-MAIL</th>
 			</tr>
 		</thead>
 		
 		<tbody style="color: #000080; font-weight: bold;">
-			<tr>
-				<td>a</td>
-				<td>b</td>
-				<td>c</td>
+			<tr th:each="fornecedor: ${fornecedores}">
+				<td th:text="${fornecedor.codigo}"></td>
+				<td th:text="${fornecedor.razaoSocial}"></td>
+				<td th:text="${fornecedor.cnpj}"></td>
+				<td th:text="${fornecedor.email}"></td>
+				
+				<td>
+					<a class="waves-effect waves-light btn-small" 
+					th:href="@{/updateprovider/{codigoFornecedor}(codigoFornecedor=${fornecedor.codigo})}">Atualizar</a>
+				</td>
+				
+				<td>
+					<a class="waves-effect waves-light btn-small" 
+					th:href="@{/deleteprovider/{codigoFornecedor}(codigoFornecedor=${fornecedor.codigo})}">Excluir</a>
+				</td>
 			</tr>
 		</tbody>
-		
 	</table>
 	
 	
 	
     <script type="text/javascript">
 
-		
+    document.addEventListener('DOMContentLoaded', function(){
+		var elems = document.querySelectorAll('.datepicker');
+		var instances = M.Datepicker.init(elems, options);
+    })
+    
+    /**/
+    $(document).ready(function(){
+		$('.datepicker').datepicker();
+    });
+
+    $(document).ready(function() {
+
+        function limpa_formulário_cep() {
+            // Limpa valores do formulário de cep.
+            $("#cep").val("");
+            $("#rua").val("");
+            $("#bairro").val("");
+            $("#numero").val("");
+            $("#cidade").val("");
+            $("#uf").val("");
+            $("#ibge").val("");
+        }
+        
+        //Quando o campo cep perde o foco.
+        $("#cep").blur(function() {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = $(this).val().replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if(validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    $("#rua").val("...");
+                    $("#numero").val("...");
+                    $("#bairro").val("...");
+                    $("#cidade").val("...");
+                    $("#uf").val("...");
+                    $("#ibge").val("...");
+
+                    //Consulta o webservice viacep.com.br/
+                    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                        if (!("erro" in dados)) {
+                            //Atualiza os campos com os valores da consulta.
+                            $("#rua").val(dados.logradouro);
+                            $("#numero").val(dados.numero);
+                            $("#bairro").val(dados.bairro);
+                            $("#cidade").val(dados.localidade);
+                            $("#uf").val(dados.uf);
+                            $("#ibge").val(dados.ibge);
+                        } //end if.
+                        else {
+                            //CEP pesquisado não foi encontrado.
+                            limpa_formulário_cep();
+                            alert("CEP não encontrado.");
+                            $('#cep').focus();
+                        }
+                    });
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        });
+    });
 
     </script>
 </body>

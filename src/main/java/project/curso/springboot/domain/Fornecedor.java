@@ -38,7 +38,7 @@ public class Fornecedor implements Serializable {
 	@Column(nullable = true, length = 120)
 	private String email;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date dataCadastro;
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
