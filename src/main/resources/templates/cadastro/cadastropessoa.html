@@ -90,7 +90,7 @@
       <div class="row">
       	<div class=".input-field col s2">
       		<label for="profissao" style="font-size: 16px;">Profissão:</label>
-      		<select id="profissao" class="browser-default" th:filed="*{profissao}">
+      		<select id="profissao" class="browser-default" th:field="*{profissao}">
 	            <option value="">Selecione</option>
 			    <option th:each="p: ${profissoes}" th:value="${p.codigo}" th:text="${p.nome}">
 	        </select>

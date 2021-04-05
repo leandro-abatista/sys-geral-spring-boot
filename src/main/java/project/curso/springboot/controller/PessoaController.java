@@ -87,6 +87,7 @@ public class PessoaController {
 			}
 			
 			mav.addObject("msg", msg);
+			mav.addObject("profissoes", profissaoRepository.findAll());//carrega todas as profissões
 			return mav;
 		}
 		
@@ -121,9 +122,13 @@ public class PessoaController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/atualizarpessoa/{codigopessoa}")
 	public ModelAndView atualizar(@PathVariable ("codigopessoa") Long codigopessoa) {
+		
 		Optional<Pessoa> pessoa = pessoaRepository.findById(codigopessoa);
+		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		mav.addObject("pessoaObject", pessoa.get());
+		mav.addObject("profissoes", profissaoRepository.findAll());//carrega todas as profissões
+		
 		return mav;
 	}
 	
@@ -134,10 +139,13 @@ public class PessoaController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/excluirpessoa/{codigopessoa}")
 	public ModelAndView excluir(@PathVariable ("codigopessoa") Long codigopessoa) {
+		
 		pessoaRepository.deleteById(codigopessoa);
+		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		mav.addObject("pessoas", pessoaRepository.findAll());
 		mav.addObject("pessoaObject", new Pessoa());//retorna um object vazio
+		
 		return mav;
 	}
 	
@@ -167,6 +175,7 @@ public class PessoaController {
 		mav.addObject("pessoas", pessoas);//o codigo abaixo foi substituído pela lista de pessoas
 		//mav.addObject("pessoas", pessoaRepository.findPessoaByName(nomePessoa));
 		mav.addObject("pessoaObject", new Pessoa());//retorna um object vazio
+		
 		return mav;
 		
 	}
@@ -223,10 +232,13 @@ public class PessoaController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/fones/{codigopessoa}")
 	public ModelAndView telefones(@PathVariable ("codigopessoa") Long codigopessoa) {
+		
 		Optional<Pessoa> pessoa = pessoaRepository.findById(codigopessoa);
+		
 		ModelAndView mav = new ModelAndView("cadastro/telefones");
 		mav.addObject("pessoaObject", pessoa.get());
 		mav.addObject("telefones", telefoneRepository.getTelefones(codigopessoa));
+		
 		return mav;
 	}
 	
@@ -258,15 +270,18 @@ public class PessoaController {
 			}
 
 			mav.addObject("msg", msg);
+			
 			return mav;
 		}
 		
 		//depois seta o telefone da pessoa
 		telefone.setPessoa(pessoa);
 		telefoneRepository.save(telefone);
+		
 		ModelAndView mav = new ModelAndView("cadastro/telefones");
 		mav.addObject("pessoaObject", pessoa);
 		mav.addObject("telefones", telefoneRepository.getTelefones(pessoa_codigo));
+		
 		return mav;
 	}
 	
@@ -277,11 +292,15 @@ public class PessoaController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/deleteFone/{codigotelefone}")
 	public ModelAndView excluirTelefone(@PathVariable ("codigotelefone") Long codigoTelefone) {
+		
 		Pessoa pessoa = telefoneRepository.findById(codigoTelefone).get().getPessoa();
+		
 		telefoneRepository.deleteById(codigoTelefone);
+		
 		ModelAndView mav = new ModelAndView("cadastro/telefones");
 		mav.addObject("pessoaObject", pessoa);
 		mav.addObject("telefones", telefoneRepository.getTelefones(pessoa.getCodigo()));
+		
 		return mav;
 	}
 	
