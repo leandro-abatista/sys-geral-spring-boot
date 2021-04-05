@@ -10,8 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat;
 
 @Entity
 public class Fornecedor implements Serializable {
@@ -22,28 +27,42 @@ public class Fornecedor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@NotEmpty(message = "O campo Razão Social não pode ser vazio!")
+	@NotNull(message = "O campo Razão Social não pode ser nulo!")
 	@Column(nullable = false, length = 150)
 	private String razaoSocial;
 
+	@NotEmpty(message = "O campo Nome Fantasia não pode ser vazio!")
+	@NotNull(message = "O campo Nome Fantasia não pode ser nulo!")
 	@Column(nullable = false, length = 150)
 	private String nomeFantasia;
 
+	@NotEmpty(message = "O campo CNPJ não pode ser vazio!")
+	@NotNull(message = "O campo CNPJ não pode ser nulo!")
 	@Column(nullable = false, length = 18)
 	private String cnpj;
 
+	@NotEmpty(message = "O campo Inscrição Estadual não pode ser vazio!")
+	@NotNull(message = "O campo Inscrição Estadual não pode ser nulo!")
 	@Column(nullable = true, length = 20)
 	private String inscricaoEstadual;
 
+	@NotEmpty(message = "O campo Inscrição Municipal não pode ser vazio!")
+	@NotNull(message = "O campo Inscrição Municipal não pode ser nulo!")
 	@Column(nullable = true, length = 20)
 	private String inscricaoMunicipal;
 
+	@NotEmpty(message = "O campo E-mail não pode ser vazio!")
+	@NotNull(message = "O campo E-mail não pode ser nulo!")
 	@Column(nullable = true, length = 120)
 	private String email;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull(message = "O campo Data de Cadastro não pode ser nulo!")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date dataCadastro;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull(message = "O campo Data de Fundação não pode ser nulo!")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataFundacao;
 
 	@Column(length = 9)

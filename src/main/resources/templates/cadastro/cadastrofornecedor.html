@@ -34,7 +34,8 @@
 	
 	<br>
 	<form id="formFornecedor" class="col s12 card-panel teal blue-grey darken-1" 
-		 action="saveprovider" method="post" th:object="${fornecedorObject}">
+		 action="saveprovider" method="post" th:object="${fornecedorObject}"
+		 onsubmit="return validarCampos();">
 		
 		<fieldset style="border: 2px solid; font-weight: bold; font-size: 17px;">
 		<legend>Dados do Fornecedor</legend>
@@ -147,8 +148,12 @@
 	      		<i class="material-icons left">save</i>Salvar</button>
 	      		
 	      		<button class="btn waves-effect waves-light" type="submit" 
-	      		onclick="document.getElementById('formFornecedor').reset();">
+	      		onclick="return limparCampos();">
 	      		<i class="material-icons left">add_box</i>Novo</button>
+	      		
+	      		<button class="btn waves-effect waves-light" type="submit" 
+	      		onclick="document.getElementById('formFornecedor').reset(1);">
+	      		<i class="material-icons left">cancel</i>Cnacelar</button>
 	      	</div>
         </div>
 	
@@ -192,7 +197,7 @@
 
 			<div class="input-field col s6">
 				<button class="btn waves-effect waves-light right" type="submit" value="PDF"
-					onclick="document.getElementById('pesquisarPessoa').method = 'get'">
+					onclick="return document.getElementById('formFornecedor').reset(1);">
 					PDF <i class="material-icons left">picture_as_pdf</i>
 				</button>
 			</div>
@@ -233,6 +238,56 @@
 	
 	
     <script type="text/javascript">
+
+    function limparCampos(){
+    	razaoSocial = document.getElementById('razaoSocial').value='';
+		nomeFantasia = document.getElementById('nomeFantasia').value='';
+		cnpj = document.getElementById('cnpj').value='';
+		inscricaoEstadual = document.getElementById('inscricaoEstadual').value='';
+		inscricaoMunicipal = document.getElementById('inscricaoMunicipal').value='';
+		email = document.getElementById('email').value='';
+		dataCadastro = document.getElementById('dataCadastro').value='';
+		dataFundacao = document.getElementById('dataFundacao').value='';
+    }
+
+    /*validação dos campos*/
+	function validarCampos(){
+		razaoSocial = document.getElementById('razaoSocial').value;
+		nomeFantasia = document.getElementById('nomeFantasia').value;
+		cnpj = document.getElementById('cnpj').value;
+		inscricaoEstadual = document.getElementById('inscricaoEstadual').value;
+		inscricaoMunicipal = document.getElementById('inscricaoMunicipal').value;
+		email = document.getElementById('email').value;
+		dataCadastro = document.getElementById('dataCadastro').value;
+		dataFundacao = document.getElementById('dataFundacao').value;
+
+		if(razaoSocial === ''){
+			alert('Razão Social deve ser informado!');
+			return false;
+		} else if (nomeFantasia === ''){
+			alert('Nome Fantasia deve ser informado!');
+			return false;
+		} else if (cnpj === ''){
+			alert('CNPJ deve ser informado!');
+			return false;
+		} else if (inscricaoEstadual === ''){
+			alert('Inscrição Estadual deve ser informado!');
+			return false;
+		} else if (inscricaoMunicipal === ''){
+			alert('Inscrição Municipal deve ser informado!');
+			return false;
+		} else if (email === ''){
+			alert('E-mail deve ser informado!');
+			return false;
+		} else if (dataCadastro === ''){
+			alert('Data de Cadastro deve ser informado!');
+			return false;
+		} else if (dataFundacao === ''){
+			alert('Data de Fundação da empresa deve ser informado!');
+			return false;
+		}
+		return true;
+	}
 
     function time() {
 	    today=new Date();

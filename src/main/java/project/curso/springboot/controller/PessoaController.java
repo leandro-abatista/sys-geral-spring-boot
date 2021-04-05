@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import project.curso.springboot.domain.Pessoa;
 import project.curso.springboot.domain.Telefone;
 import project.curso.springboot.repository.PessoaRepository;
+import project.curso.springboot.repository.ProfissaoRepository;
 import project.curso.springboot.repository.TelefoneRepository;
 
 
@@ -42,18 +43,23 @@ public class PessoaController {
 	@Autowired//pode ser resources também (Tanto autowired, como resources, são injeções de dependência)
 	private ReportUtil reportUtil;
 	
+	@Autowired//pode ser resources também (Tanto autowired, como resources, são injeções de dependência)
+	private ProfissaoRepository profissaoRepository;
+	
 	/**
 	 * Método de inicialização da tela de cadastro de pessoa
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
 	public ModelAndView inicio() {
+		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		/*carrega a tabela de pessoas cadastradas assim que entra na página*/
 		Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
 		mav.addObject("pessoas", pessoaIterable);
-		
 		mav.addObject("pessoaObject", new Pessoa());
+		mav.addObject("profissoes", profissaoRepository.findAll());//carrega todas as profissões
+		
 		return mav;
 	}
 	

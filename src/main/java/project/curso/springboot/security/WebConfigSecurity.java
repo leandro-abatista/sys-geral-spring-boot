@@ -28,6 +28,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/cadastropessoa").hasAnyRole("ADMIN")//SÓ TEM ACESSO A PÁGINA cadastropessoa, O USUÁRIO ADMIN
 		.antMatchers(HttpMethod.GET, "/cadastroramoatividade").hasAnyRole("ADMIN")//SÓ TEM ACESSO A PÁGINA cadastropessoa, O USUÁRIO ADMIN
 		.antMatchers(HttpMethod.GET, "/cadastrofornecedor").hasAnyRole("ADMIN")//SÓ TEM ACESSO A PÁGINA cadastropessoa, O USUÁRIO ADMIN
+		.antMatchers(HttpMethod.GET, "/cadastroprofissao").hasAnyRole("ADMIN")//SÓ TEM ACESSO A PÁGINA cadastropessoa, O USUÁRIO ADMIN
 		.anyRequest().authenticated()
 		.and().formLogin()//permite qualquer usuario
 		.loginPage("/login").permitAll()//pagina de login

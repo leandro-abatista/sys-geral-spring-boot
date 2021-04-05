@@ -22,36 +22,33 @@
 	
 	<div class="container">
 	
-		
-	
 	<!-- formulário de login -->
-	<form th:action="@{/login}" method="post" class="col s12 card-panel teal blue-grey lighten-4">
+	<form th:action="@{/login}" method="post" class="col s12 card-panel blue-grey darken-1"
+	style="width: 450px; height: 500px;">
 	
 		<div class="row">
 			<div class="input-field col s12">
-				<center><h2 style="color: blue;">Acesso ao Sistema</h2></center>
-				<br>
 				<h3 style="color: blue;">Área Restrita</h3>
 			</div>
 		</div>
 	
 		<div class="row">
 			<div class="input-field col s12">
-				<input id="username" type="text" name="username"  placeholder="Usuário" />
+				<input id="username" type="text" name="username"  placeholder="Informe o seu usuário" />
 				<label for="username" style="font-size: 25px; border-bottom: 4px;">Usuário</label> 
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="input-field col s12">
-				<input id="password" type="password" name="password"  placeholder="Senha" />
+				<input id="password" type="password" name="password"  placeholder="Informe a sua senha" />
 				<label for="password" style="font-size: 25px; border-bottom: 4px;">Senha</label>
 			</div>
 		</div>
 		
 		<div class="row">
       		<div class="input-field col s5">
-				<button class="btn waves-effect waves-light" type="submit" value="logar">Entrar
+				<button class="btn waves-effect waves-light right" type="submit" value="logar">Entrar
 					<i class="material-icons left">input</i>
 				</button>
 			</div>
