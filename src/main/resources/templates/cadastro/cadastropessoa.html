@@ -95,6 +95,14 @@
 			    <option th:each="p: ${profissoes}" th:value="${p.codigo}" th:text="${p.nome}">
 	        </select>
       	</div>
+      	
+      	<div class=".input-field col s2">
+      		<label for="cargo" style="font-size: 16px;">Cargo:</label>
+      		<select id="cargo" class="browser-default" th:field="*{cargo}">
+	            <option value="">Selecione</option>
+			    <option th:each="cargo: ${T(project.curso.springboot.enums.Cargo).values()}" th:value="${cargo}" th:text="${cargo.nome}">
+	        </select>
+      	</div>
       </div>
       
       </fieldset>

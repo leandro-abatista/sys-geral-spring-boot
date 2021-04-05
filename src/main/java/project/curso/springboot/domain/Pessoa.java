@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import project.curso.springboot.enums.Cargo;
 
 @SuppressWarnings("deprecation")
 @Entity
@@ -75,6 +79,10 @@ public class Pessoa implements Serializable {
 	
 	@ManyToOne//Muitas pessoas para uma profissão
 	private Profissao profissao;
+	
+	@Column(length = 20)
+	@Enumerated(EnumType.STRING)
+	private Cargo cargo;//classe enum
 
 	/* Getters e Setters */
 
@@ -204,6 +212,14 @@ public class Pessoa implements Serializable {
 	
 	public void setProfissao(Profissao profissao) {
 		this.profissao = profissao;
+	}
+	
+	public Cargo getCargo() {
+		return cargo;
+	}
+	
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
 	}
 
 	@Override
