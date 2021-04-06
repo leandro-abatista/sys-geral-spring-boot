@@ -262,8 +262,10 @@
 				
 				<td>
 				<a class="btn-floating btn waves-effect waves-light red"
-					th:href="@{/downloadFile/{codigopessoa}(codigopessoa=${pessoa.codigo})}">
+					th:href="@{/downloadFile/{codigopessoa}(codigopessoa=${pessoa.codigo})}"
+					th:if="${pessoa.fileCurriculo != null}"><!-- se existir arquivo mostra -->
 					<i class="material-icons left">file_download</i></a>
+				<a th:if="${pessoa.fileCurriculo == null}">Não existe arquivo</a><!-- caso contrário, mostra a mensagem -->
 				</td>
 				
 				<td>
