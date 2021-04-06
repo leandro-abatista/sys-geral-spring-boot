@@ -95,12 +95,21 @@ public class PessoaController {
 		}
 		
 		if (file.getSize() > 0) {//cadastrando um novo currículo
+			
 			pessoa.setFileCurriculo(file.getBytes());
+			pessoa.setTipoFileCurriculo(file.getContentType());
+			pessoa.setNomeFileCurriculo(file.getOriginalFilename());
+			
 		} else {
+			
 			if (pessoa.getCodigo() != null && pessoa.getCodigo() > 0) {//editando 
-				byte[] arquivoTemp = pessoaRepository.findById(pessoa.getCodigo()).get().getFileCurriculo();
-				pessoa.setFileCurriculo(arquivoTemp);
+				
+				Pessoa pessoaTemp = pessoaRepository.findById(pessoa.getCodigo()).get();
+				pessoa.setFileCurriculo(pessoaTemp.getFileCurriculo());
+				pessoa.setTipoFileCurriculo(pessoaTemp.getTipoFileCurriculo());
+				pessoa.setNomeFileCurriculo(pessoaTemp.getNomeFileCurriculo());
 			}
+			
 		}
 		
 		pessoaRepository.save(pessoa);
@@ -120,10 +129,12 @@ public class PessoaController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/listperson")
 	public ModelAndView listarTodos(){
+		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
 		mav.addObject("pessoas", pessoaIterable);
 		mav.addObject("pessoaObject", new Pessoa());
+		
 		return mav;
 	}
 	

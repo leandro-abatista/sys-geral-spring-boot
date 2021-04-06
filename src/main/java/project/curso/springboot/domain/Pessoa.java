@@ -88,6 +88,10 @@ public class Pessoa implements Serializable {
 	
 	@Lob
 	private byte[] fileCurriculo;
+	
+	private String nomeFileCurriculo;
+	
+	private String tipoFileCurriculo;
 
 	/* Getters e Setters */
 
@@ -233,6 +237,22 @@ public class Pessoa implements Serializable {
 
 	public void setFileCurriculo(byte[] fileCurriculo) {
 		this.fileCurriculo = fileCurriculo;
+	}
+	
+	public String getNomeFileCurriculo() {
+		return nomeFileCurriculo;
+	}
+
+	public void setNomeFileCurriculo(String nomeFileCurriculo) {
+		this.nomeFileCurriculo = nomeFileCurriculo;
+	}
+
+	public String getTipoFileCurriculo() {
+		return tipoFileCurriculo;
+	}
+
+	public void setTipoFileCurriculo(String tipoFileCurriculo) {
+		this.tipoFileCurriculo = tipoFileCurriculo;
 	}
 
 	@Override
