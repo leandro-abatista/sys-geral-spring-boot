@@ -83,7 +83,7 @@
         </div>
         
         <div class=".input-field col s2">
-        	<label for="sexoPessoa" style="font-size: 16px;">Sexo:</label>
+        	<label for="sexoPessoa" style="font-size: 15px;">Sexo:</label>
 	        <select id="sexoPessoa" class="browser-default"  th:field="*{sexo}">
 	            <option value="">Selecione</option>
 			    <option value="Masculino" th:text="Masculino">
@@ -94,7 +94,7 @@
       
       <div class="row">
       	<div class=".input-field col s2">
-      		<label for="profissao" style="font-size: 16px;">Profissão:</label>
+      		<label for="profissao" style="font-size: 15px;">Profissão:</label>
       		<select id="profissao" class="browser-default" th:field="*{profissao}">
 	            <option value="">Selecione</option>
 			    <option th:each="p: ${profissoes}" th:value="${p.codigo}" th:text="${p.nome}">
@@ -102,7 +102,7 @@
       	</div>
       	
       	<div class=".input-field col s2">
-      		<label for="cargo" style="font-size: 16px;">Cargo:</label>
+      		<label for="cargo" class="active" style="font-size: 15px;">Cargo:</label>
       		<select id="cargo" class="browser-default" th:field="*{cargo}">
 	            <option value="">Selecione</option>
 			    <option th:each="cargo: ${T(project.curso.springboot.enums.Cargo).values()}" th:value="${cargo}" th:text="${cargo.nome}">
@@ -112,10 +112,10 @@
       
       <div class="row">
 	    	<div class="input-field col s12">
-			  <label for="file" class="active">Currículo:</label>
-			   <input type="file" id="file" name="file" class="validate" >
+			  <label for="file" class="active" style="font-weight: bold; font-size: 17px;">Arquivo:</label>
+			  <input type="file" id="file" name="file" class="file-field input-field">
 			</div>
-	 </div>
+	  </div>
 
 	  </fieldset>
       
@@ -244,8 +244,8 @@
 				<th>NOME</th>
 				<th>CPF</th>
 				<th>IDADE</th>
-				<th>TELEFONE</th>
 				<th>E-MAIL</th>
+				<th>ARQUIVO</th>
 				<th>ATUALIZAR</th>
 				<th>EXCLUIR</th>
 				<th>TELEFONE</th>
@@ -258,8 +258,13 @@
 				<td th:text = "${pessoa.nome}"></td>
 				<td th:text = "${pessoa.cpf}"></td>
 				<td th:text = "${pessoa.idade}"></td>
-				<td th:text = "${pessoa.telefone}"></td>
 				<td th:text = "${pessoa.email}"></td>
+				
+				<td>
+				<a class="btn-floating btn waves-effect waves-light red"
+					th:href="@{/downloadFile/{codigopessoa}(codigopessoa=${pessoa.codigo})}">
+					<i class="material-icons left">file_download</i></a>
+				</td>
 				
 				<td>
 				<a class="btn-floating btn waves-effect waves-light red"

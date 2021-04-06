@@ -327,4 +327,25 @@ public class PessoaController {
 		return mav;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "**/downloadFile/{codigopessoa}")
+	public void downloadArquivo(@PathVariable ("codigopessoa") Long codigopessoa, HttpServletResponse response) throws IOException {
+		
+		/*consultar objeto pessoa no banco de dados*/
+		Pessoa pessoa = pessoaRepository.findById(codigopessoa).get();
+		
+		if (pessoa.getFileCurriculo() != null) {
+			
+			/*setar o tamanho da resposta*/
+			response.setContentLength(pessoa.getFileCurriculo().length);
+			/*tipo do arquivo para download ou pode ser genérica usando -> application/octet-stream, caso a primeira opção não dê certo*/
+			response.setContentType(pessoa.getTipoFileCurriculo());
+			/*define o cabeçalho da resposta*/
+			String headerkey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"", pessoa.getNomeFileCurriculo());
+			response.setHeader(headerkey, headerValue);
+			/*finaliza a resposta passando o arquivo*/
+			response.getOutputStream().write(pessoa.getFileCurriculo());
+		}
+	}
+	
 }
