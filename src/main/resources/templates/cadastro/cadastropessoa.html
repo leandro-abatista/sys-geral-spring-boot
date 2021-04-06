@@ -37,7 +37,8 @@
 	<br>
 	
     <form id="formPessoa" class="col s12 card-panel teal blue-grey darken-1" 
-    	action="salvarpessoa" method="post" th:object="${pessoaObject}">
+    	action="salvarpessoa" method="post" th:object="${pessoaObject}"
+    	enctype="multipart/form-data">
     
       <fieldset style="border: 2px solid; font-weight: bold;">
 	  <legend>Dados pessoais da pessoa</legend>
@@ -50,15 +51,19 @@
       </div>
       
       <div class="row">
-        <div class="input-field col s6">
-        	<input id="nome" type="text" name="nome" class="validate" th:field="*{nome}">
-			<label for="nome">Nome:</label>
-       </div>
-       
-       <div class="input-field col s3">
-        	<input id="cpf" type="text" name="cpf" class="validate" th:field="*{cpf}">
-			<label for="cpf">CPF:</label>
-       </div>
+	       <div class="input-field col s6">
+	        	<input id="nome" type="text" name="nome" class="validate" th:field="*{nome}">
+				<label for="nome">Nome:</label>
+	       </div>
+	       
+	       <div class="input-field col s3">
+	        	<input id="cpf" type="text" name="cpf" class="validate" th:field="*{cpf}">
+				<label for="cpf">CPF:</label>
+	       </div>
+	       <!-- Depois faço essa parte de foto -->
+	       <div class="input-field col s3">
+			   <label for="filePessoa">Foto:</label>
+	       </div>
       </div>
       
       <div class="row" >
@@ -105,7 +110,14 @@
       	</div>
       </div>
       
-      </fieldset>
+      <div class="row">
+	    	<div class="input-field col s12">
+			  <label for="file" class="active">Currículo:</label>
+			   <input type="file" id="file" name="file" class="validate" >
+			</div>
+	 </div>
+
+	  </fieldset>
       
       <fieldset style="border: 2px solid; font-weight: bold;">
 	  <legend>Dados do Endereço</legend>

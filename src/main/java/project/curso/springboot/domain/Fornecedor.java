@@ -2,21 +2,21 @@ package project.curso.springboot.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat;
 
 @Entity
 public class Fornecedor implements Serializable {
@@ -83,7 +83,12 @@ public class Fornecedor implements Serializable {
 	private String uf;
 
 	private Integer ibge;
+	
+	// se relaciona com o objeto fornecedor que foi declarado na classe de telefoneFornecedor
+	@OneToMany(mappedBy = "fornecedor", orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<TelefoneFornecedor> telefoneFornecedores;
 
+	/*Getters e Setters*/
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -210,6 +215,14 @@ public class Fornecedor implements Serializable {
 
 	public void setIbge(Integer ibge) {
 		this.ibge = ibge;
+	}
+	
+	public List<TelefoneFornecedor> getTelefoneFornecedores() {
+		return telefoneFornecedores;
+	}
+
+	public void setTelefoneFornecedores(List<TelefoneFornecedor> telefoneFornecedores) {
+		this.telefoneFornecedores = telefoneFornecedores;
 	}
 
 	@Override

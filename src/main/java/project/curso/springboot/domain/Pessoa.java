@@ -11,16 +11,18 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
+
 
 import project.curso.springboot.enums.Cargo;
 
-@SuppressWarnings("deprecation")
+
 @Entity
 public class Pessoa implements Serializable {
 
@@ -83,6 +85,9 @@ public class Pessoa implements Serializable {
 	@Column(length = 20)
 	@Enumerated(EnumType.STRING)
 	private Cargo cargo;//classe enum
+	
+	@Lob
+	private byte[] fileCurriculo;
 
 	/* Getters e Setters */
 
@@ -220,6 +225,14 @@ public class Pessoa implements Serializable {
 	
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
+	}
+	
+	public byte[] getFileCurriculo() {
+		return fileCurriculo;
+	}
+
+	public void setFileCurriculo(byte[] fileCurriculo) {
+		this.fileCurriculo = fileCurriculo;
 	}
 
 	@Override

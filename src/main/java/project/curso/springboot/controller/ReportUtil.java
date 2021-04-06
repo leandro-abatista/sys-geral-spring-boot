@@ -17,7 +17,10 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @Component
 public class ReportUtil implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	/*Retorna nosso PDF em Byte para download no navegador*/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public byte[] gerarRelatorio (List listDados, String relatorio, ServletContext servletContext) throws Exception{
 		
 		/*Cria a lista de dados para o relatório com nossa lista de objetos para imprimir*/

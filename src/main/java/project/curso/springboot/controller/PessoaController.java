@@ -1,5 +1,6 @@
 package project.curso.springboot.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.curso.springboot.domain.Pessoa;
@@ -67,9 +69,10 @@ public class PessoaController {
 	 * Método para salvar uma pessoa
 	 * @param pessoa
 	 * @return
+	 * @throws IOException 
 	 */
-	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa")
-	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult) {
+	@RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa", consumes = {"multipart/form-data"})
+	public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult, final MultipartFile file) throws IOException {
 		
 		/*pegando os telefones associados a pessoa, pelo codigo da pessoa*/
 		pessoa.setTelefones(telefoneRepository.getTelefones(pessoa.getCodigo()));
@@ -89,6 +92,15 @@ public class PessoaController {
 			mav.addObject("msg", msg);
 			mav.addObject("profissoes", profissaoRepository.findAll());//carrega todas as profissões
 			return mav;
+		}
+		
+		if (file.getSize() > 0) {//cadastrando um novo currículo
+			pessoa.setFileCurriculo(file.getBytes());
+		} else {
+			if (pessoa.getCodigo() != null && pessoa.getCodigo() > 0) {//editando 
+				byte[] arquivoTemp = pessoaRepository.findById(pessoa.getCodigo()).get().getFileCurriculo();
+				pessoa.setFileCurriculo(arquivoTemp);
+			}
 		}
 		
 		pessoaRepository.save(pessoa);
