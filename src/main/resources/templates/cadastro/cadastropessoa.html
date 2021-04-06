@@ -155,7 +155,8 @@
       		<button class="btn waves-effect waves-light" type="submit">
       		<i class="material-icons left">save</i>Salvar</button>
       		
-      		<button class="btn waves-effect waves-light" type="submit" onclick="document.getElementById('formPessoa').reset();">
+      		<button class="btn waves-effect waves-light" type="submit" 
+      		onclick="document.getElementById('formPessoa').reset();">
       		<i class="material-icons left">add_box</i>Novo</button>
       	</div>
       </div>
@@ -235,6 +236,7 @@
 				<th>E-MAIL</th>
 				<th>ATUALIZAR</th>
 				<th>EXCLUIR</th>
+				<th>TELEFONE</th>
 			</tr>
 		</thead>
 		
@@ -248,13 +250,21 @@
 				<td th:text = "${pessoa.email}"></td>
 				
 				<td>
-				<a class="waves-effect waves-light btn-small"
-					th:href="@{/atualizarpessoa/{codigopessoa}(codigopessoa=${pessoa.codigo})}">Atualizar</a>
+				<a class="btn-floating btn waves-effect waves-light red"
+					th:href="@{/atualizarpessoa/{codigopessoa}(codigopessoa=${pessoa.codigo})}">
+					<i class="material-icons left">mode_edit</i></a>
 				</td>
 				
 				<td>
-				<a class="waves-effect waves-light btn-small"
-					th:href="@{/excluirpessoa/{codigopessoa}(codigopessoa=${pessoa.codigo})}">Excluir</a>
+				<a class="btn-floating btn waves-effect waves-light red"
+					th:href="@{/excluirpessoa/{codigopessoa}(codigopessoa=${pessoa.codigo})}">
+					<i class="material-icons left">delete_forever</i></a>
+				</td>
+				
+				<td>
+				<a class="btn-floating btn waves-effect waves-light red"
+					th:href="@{/fones/{codigopessoa}(codigopessoa=${pessoa.codigo})}">
+					<i class="material-icons left">contact_phone</i></a>
 				</td>
 			</tr>
 		</tbody>

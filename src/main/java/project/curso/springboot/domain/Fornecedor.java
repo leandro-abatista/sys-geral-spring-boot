@@ -57,12 +57,12 @@ public class Fornecedor implements Serializable {
 	@Column(nullable = true, length = 120)
 	private String email;
 
-	@NotNull(message = "O campo Data de Cadastro não pode ser nulo!")
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
-	@NotNull(message = "O campo Data de Fundação não pode ser nulo!")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
 	private Date dataFundacao;
 
 	@Column(length = 9)
