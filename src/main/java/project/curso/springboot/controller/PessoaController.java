@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -57,9 +59,8 @@ public class PessoaController {
 		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		/*carrega a tabela de pessoas cadastradas assim que entra na página*/
-		Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
-		mav.addObject("pessoas", pessoaIterable);
 		mav.addObject("pessoaObject", new Pessoa());
+		mav.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5, Sort.by("codigo"))));
 		mav.addObject("profissoes", profissaoRepository.findAll());//carrega todas as profissões
 		
 		return mav;
@@ -80,8 +81,8 @@ public class PessoaController {
 		//se tiver erro, volta para a tela e deixa os dados em tela para corrigir
 		if (bindingResult.hasErrors()) {
 			ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
-			Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
-			mav.addObject("pessoas", pessoaIterable);
+			//Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
+			mav.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5, Sort.by("codigo"))));
 			mav.addObject("pessoaObject", pessoa);
 			//aqui valida os erros das anotações e adiciona na lista de erros para serem mostrados ao usuário
 			List<String> msg = new ArrayList<String>();
@@ -115,8 +116,8 @@ public class PessoaController {
 		pessoaRepository.save(pessoa);
 		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
-		Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
-		mav.addObject("pessoas", pessoaIterable);
+		//Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
+		mav.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5, Sort.by("codigo"))));
 		mav.addObject("pessoaObject", new Pessoa());
 		
 		return mav;
@@ -131,8 +132,8 @@ public class PessoaController {
 	public ModelAndView listarTodos(){
 		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
-		Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
-		mav.addObject("pessoas", pessoaIterable);
+		//Iterable<Pessoa> pessoaIterable = pessoaRepository.findAll();
+		mav.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5, Sort.by("codigo"))));
 		mav.addObject("pessoaObject", new Pessoa());
 		
 		return mav;
@@ -166,7 +167,7 @@ public class PessoaController {
 		pessoaRepository.deleteById(codigopessoa);
 		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
-		mav.addObject("pessoas", pessoaRepository.findAll());
+		mav.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5, Sort.by("codigo"))));
 		mav.addObject("pessoaObject", new Pessoa());//retorna um object vazio
 		
 		return mav;
