@@ -177,31 +177,34 @@ public class PessoaController {
 	}
 	
 	/**
-	 * Método buscar por nome da pessoa
+	 * Método pesquisar
 	 * @param nomePessoa
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "**/pesquisarpessoa")
 	public ModelAndView pesquisar(
 			@RequestParam ("nomePessoa") String nomePessoa,
-			@RequestParam ("sexoPessoa") String sexoPessoa
+			@RequestParam ("sexoPessoa") String sexoPessoa,
+			@PageableDefault(size = 5, sort = {"codigo"}) Pageable pageable
 			) {
 		
-		List<Pessoa> pessoas = new ArrayList<>();
+		//List<Pessoa> pessoas = new ArrayList<>();
+		Page<Pessoa> pessoas = null;
 		
 		if (nomePessoa != null && !nomePessoa.isEmpty()) {
 			
-			pessoas = pessoaRepository.findPessoaByName(nomePessoa);
+			pessoas = pessoaRepository.findPessoaByNamePage(nomePessoa, pageable);
 			
 		} else if (sexoPessoa != null && !sexoPessoa.isEmpty()) {
 			
-			pessoas = pessoaRepository.findPessoaByNameSexo(nomePessoa, sexoPessoa);
+			pessoas = pessoaRepository.findPessoaByNameSexoPage(nomePessoa, sexoPessoa, pageable);
 		}
 		
 		ModelAndView mav = new ModelAndView("cadastro/cadastropessoa");
 		mav.addObject("pessoas", pessoas);//o codigo abaixo foi substituído pela lista de pessoas
 		//mav.addObject("pessoas", pessoaRepository.findPessoaByName(nomePessoa));
 		mav.addObject("pessoaObject", new Pessoa());//retorna um object vazio
+		mav.addObject("nomePessoa", nomePessoa);
 		
 		return mav;
 		
@@ -352,12 +355,21 @@ public class PessoaController {
 		}
 	}
 	
+	/**
+	 * Método de paginação
+	 * @param pageable
+	 * @param modelAndView
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/personpag")
-	public ModelAndView carregaPessoaPorPaginacao(@PageableDefault (size = 5) Pageable pageable, ModelAndView modelAndView) {
+	public ModelAndView carregaPessoaPorPaginacao(@PageableDefault (size = 5, sort = {"codigo"}) Pageable pageable, 
+			ModelAndView modelAndView,
+			@RequestParam ("nomePessoa") String nomePessoa) {
 		
-		Page<Pessoa> pagePessoa = pessoaRepository.findAll(pageable);
+		Page<Pessoa> pagePessoa = pessoaRepository.findPessoaByNamePage(nomePessoa, pageable);
 		modelAndView.addObject("pessoas", pagePessoa);
 		modelAndView.addObject("pessoaObject", new Pessoa());
+		modelAndView.addObject("nomePessoa", nomePessoa);//pega o nome da pesquisa e retorna para a tela
 		modelAndView.setViewName("cadastro/cadastropessoa");
 		
 		return modelAndView;

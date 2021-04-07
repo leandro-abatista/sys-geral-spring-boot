@@ -194,7 +194,7 @@
 
 				<div class="input-field col s4">
 					<input id="nomePessoa" type="text" name="nomePessoa"
-						placeholder="Buscar..." class="validate"> 
+						placeholder="Buscar..." class="validate" th:value="${nomePessoa}"> 
 					<label for="nomePessoa" style="font-size: 20px;">Pesquisar por nome: </label>
 				</div>
 
@@ -293,19 +293,19 @@
 		<center>
 		
 			<span th:if="${pessoas.hasPrevious()}">
-				<a th:href="@{/personpag(page=${pessoas.number-1}, size=${pessoas.size})}" 
+				<a th:href="@{/personpag(page=${pessoas.number-1}, size=${pessoas.size}, nomePessoa=${nomePessoa})}" 
 				style="color: #1E90FF; font-size: 20px; font-weight: bold;">
 				Anterior</a>
 			</span>
 		
 			<th:block th:each="i: ${#numbers.sequence(0, pessoas.totalPages -1)}">
-				<a th:href="@{/personpag(page=${i}, size=${pessoas.size})}" 
+				<a th:href="@{/personpag(page=${i}, size=${pessoas.size}, nomePessoa=${nomePessoa})}" 
 				style="color: #B22222; font-size: 20px; font-weight: bold;">
 				[[ ${i} + 1 ]]</a>
 			</th:block>
 			
 			<span th:if="${pessoas.hasNext()}">
-				<a th:href="@{/personpag(page=${pessoas.number+1}, size=${pessoas.size})}" 
+				<a th:href="@{/personpag(page=${pessoas.number+1}, size=${pessoas.size}, nomePessoa=${nomePessoa})}" 
 				style="color: #1E90FF; font-size: 20px; font-weight: bold;">
 				Próximo</a>
 			</span>
