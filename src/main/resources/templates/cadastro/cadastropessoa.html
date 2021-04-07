@@ -253,7 +253,7 @@
 		</thead>
 		
 		<tbody style="color: #000080; font-weight: bold;">
-			<tr th:each = "pessoa: ${pessoas}">
+			<tr th:each = "pessoa: ${pessoas.content}">
 				<td><a th:href="@{/fones/{codigopessoa}(codigopessoa=${pessoa.codigo})}"><span th:text = "${pessoa.codigo}"></span></a></td>
 				<td th:text = "${pessoa.nome}"></td>
 				<td th:text = "${pessoa.cpf}"></td>

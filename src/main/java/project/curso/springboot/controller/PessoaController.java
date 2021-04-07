@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -347,6 +350,17 @@ public class PessoaController {
 			/*finaliza a resposta passando o arquivo*/
 			response.getOutputStream().write(pessoa.getFileCurriculo());
 		}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/personpag")
+	public ModelAndView carregaPessoaPorPaginacao(@PageableDefault (size = 5) Pageable pageable, ModelAndView modelAndView) {
+		
+		Page<Pessoa> pagePessoa = pessoaRepository.findAll(pageable);
+		modelAndView.addObject("pessoas", pagePessoa);
+		modelAndView.addObject("pessoaObject", new Pessoa());
+		modelAndView.setViewName("cadastro/cadastropessoa");
+		
+		return modelAndView;
 	}
 	
 }
